@@ -260,3 +260,20 @@ body {
 .detail-row span:first-child {
   color: #b4b9c2;
 }
+
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 8px;
+}
+
+.export {
+  font-size: 13px;
+  color: #3b6ef5;
+  cursor: pointer;
+}
+
+mark {
+  background: #fff1a8;
+  color: inherit;
+}

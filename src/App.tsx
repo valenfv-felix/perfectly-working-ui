@@ -5,6 +5,7 @@ import { TransferDetailModal } from './components/TransferDetailModal';
 import { TransferList } from './components/TransferList';
 import { useTransfers } from './hooks/useTransfers';
 import { TransferFilters } from './types';
+import { exportCsv } from './utils/exportCsv';
 
 const INITIAL_FILTERS: TransferFilters = {
   recipient: '',
@@ -33,7 +34,16 @@ export function App() {
       ) : (
         <>
           <Summary transfers={transfers} />
-          <TransferList transfers={transfers} onSelect={(id) => setSelectedId(id)} />
+          <div className="toolbar">
+            <div className="export" onClick={() => exportCsv(transfers)}>
+              Export CSV
+            </div>
+          </div>
+          <TransferList
+            transfers={transfers}
+            query={filters.recipient}
+            onSelect={(id) => setSelectedId(id)}
+          />
         </>
       )}
 

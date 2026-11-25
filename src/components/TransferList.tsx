@@ -3,10 +3,11 @@ import { TransferRow } from './TransferRow';
 
 interface Props {
   transfers: Transfer[];
+  query: string;
   onSelect: (id: string) => void;
 }
 
-export function TransferList({ transfers, onSelect }: Props) {
+export function TransferList({ transfers, query, onSelect }: Props) {
   const sorted = transfers.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
 
   return (
@@ -20,7 +21,7 @@ export function TransferList({ transfers, onSelect }: Props) {
         <div className="cell cell-amount">Received</div>
       </div>
       {sorted.map((transfer, index) => (
-        <TransferRow key={index} transfer={transfer} onSelect={onSelect} />
+        <TransferRow key={index} transfer={transfer} query={query} onSelect={onSelect} />
       ))}
     </div>
   );

@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { fetchTransfers } from '../api/mockApi';
 import { Transfer, TransferFilters, TransferQuery } from '../types';
 
+const REFRESH_INTERVAL = 30000;
+
 function buildQuery(filters: TransferFilters): TransferQuery {
   const query: TransferQuery = {};
   if (filters.recipient) query.recipient = filters.recipient;
@@ -20,6 +22,13 @@ export function useTransfers(filters: TransferFilters) {
       .then((data) => setTransfers(data))
       .catch((error) => console.error(error));
   }, [filters.recipient, filters.status, filters.from, filters.to, filters.minAmount]);
+
+  // Keep the list fresh
+  useEffect(() => {
+    setInterval(() => {
+      fetchTransfers(buildQuery(filters)).then((data) => setTransfers(data));
+    }, REFRESH_INTERVAL);
+  }, []);
 
   return transfers;
 }
